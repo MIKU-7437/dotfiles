@@ -22,6 +22,16 @@ zinit light zsh-users/zsh-completions
 zinit light zsh-users/zsh-autosuggestions
 zinit light Aloxaf/fzf-tab
 
+zinit light jeffreytse/zsh-vi-mode
+bindkey -v
+# TODO: take out all thing connected with window server protocol in local variables
+# yanking in system clipboard override :3
+zvm_vi_yank () {
+	zvm_yank
+	printf %s "${CUTBUFFER}" |  wl-copy -n
+	zvm_exit_visual_mode
+}
+
 # Add in snippets
 zinit snippet OMZP::git
 zinit snippet OMZP::sudo
@@ -60,6 +70,7 @@ zstyle ':completion:*' menu no
 zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls --color $realpath'
 #zstyle ':fzf-tab:complete:__zoxide_z:*' fzf-preview 'ls --color $realpath'
 
+export EDITOR=nvim
 # Aliases
 # replacing ls to exa
 if command -v exa> /dev/null; then
