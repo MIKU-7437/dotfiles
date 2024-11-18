@@ -1,0 +1,45 @@
+# [username]
+# style_user = "green bold"
+# style_root = "red bold"
+# format = "[$user]($style) "
+# disabled = false
+# show_always = true
+
+
+# [hostname]
+# ssh_only = false
+# format = '[$hostname](bold green) '
+# trim_at = "."
+# disabled = false
+
+
+[directory]
+read_only = " "
+truncation_length = 10
+truncate_to_repo = true # truncates directory to root folder if in github repo
+style = "bold bright-blue"
+
+
+[cmd_duration]
+min_time = 4_000
+disabled = false
+show_notifications=true
+min_time_to_notify=45_000
+style = "bold italic red"
+
+
+[git_branch]
+symbol = " "
+# ignore_branches = ['master', 'main']
+# style = "bold yellow"
+
+
+[python]
+symbol = " "
+# pyenv_version_name = true
+# format = 'via [${symbol}python (${version} )(\($virtualenv\) )]($style)'
+style = "bold green"
+# pyenv_prefix = "venv "
+python_binary = ["./.venv/bin/python", "./venv/bin/python", "python", "python3", "python2"]
+detect_extensions = ["py"]
+# version_format = "v${raw}"
