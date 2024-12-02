@@ -92,3 +92,5 @@ alias tmuxn='tmux new -s'
 alias wli="wl-paste --type image/png | kitty +kitten icat --stdin=yes"
 
 export VISUAL=nvim
+export PYTHON_VENV_NAME=.venv    # ohmyzsh plugin python
+export PYTHON_AUTO_VRUN=true     # ohmyzsh plugin python
