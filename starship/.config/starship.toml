@@ -45,3 +45,8 @@ style = "bold green"
 python_binary = ["./.venv/bin/python", "./venv/bin/python", "python", "python3", "python2"]
 detect_extensions = ["py"]
 # version_format = "v${raw}"
+
+
+[aws]
+disabled = true
+force_display = true
