@@ -17,13 +17,17 @@ The `kanata.kbd` file defines the custom keyboard layout and behavior for Kanata
      ```plaintext
      esc  f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12
      grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
+     tab  q    w    e    r    t    y    u    i    o    p    [    ]
+     caps a    s    d    f    g    h    j    k    l    ;    '    ret
+     lsft z    x    c    v    b    n    m    ,    .    /    rsft
+     lctl lmet lalt        spc             ralt rmet rctl
      ```
 
 2. **Tap-Hold Variables (`defvar`)**:
 
    - Defines tap and hold timeouts for keys.
    - Example:
-     ```plaintext
+     ```lisp
      tap-timeout 300      ;; Time in milliseconds for a tap
      hold-timeout 200     ;; Time in milliseconds for a hold
      ```
@@ -67,11 +71,7 @@ The `plugins.txt` file contains a list of packages and plugins required for the 
 
 ### Required Plugins
 
-1. **neovim**: Modern text editor for developers.
-2. **git**: Version control system.
-3. **htop**: Interactive process viewer.
-4. **yay**: AUR helper for Arch Linux.
-5. **zsh**: Powerful shell with scripting capabilities.
+1. **kanata**: Main program
 
 ---
 
