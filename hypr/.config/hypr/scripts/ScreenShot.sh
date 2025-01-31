@@ -102,6 +102,23 @@ shotswappy() {
 	rm "$tmpfile"
 }
 
+shotactivearea() {
+    active_window_class=$(hyprctl -j activewindow | jq -r '(.class)')
+    active_window_file="Screenshot_${time}_${active_window_class}_area.png"
+    active_window_path="${dir}/${active_window_file}"
+    
+    active_geometry=$(hyprctl -j activewindow | jq -r '"\(.at[0]),\(.at[1]) \(.size[0])x\(.size[1])"')
+    
+    selected_area=$(slurp -b 000000AA -d "${active_geometry}")
+    
+    if [[ -n "$selected_area" ]]; then
+        grim -g "$selected_area" "${active_window_path}"
+        wl-copy <"${active_window_path}"
+        notify_view "active"
+    else
+        notify-send "No area selected" -u low
+    fi
+}
 
 if [[ ! -d "$dir" ]]; then
 	mkdir -p "$dir"
@@ -121,6 +138,8 @@ elif [[ "$1" == "--active" ]]; then
 	shotactive
 elif [[ "$1" == "--swappy" ]]; then
 	shotswappy
+elif [[ "$1" == "--activearea" ]]; then
+    shotactivearea
 else
 	echo -e "Available Options : --now --in5 --in10 --win --area --active --swappy"
 fi
