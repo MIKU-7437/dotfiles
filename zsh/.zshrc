@@ -94,6 +94,7 @@ eval "$(zoxide init --cmd cd zsh)"
 alias icat='kitty icat'
 alias tmuxn='tmux new -s'
 alias wli="wl-paste --type image/png | kitty +kitten icat --stdin=yes"
+alias lnvim="NVIM_APPNAME=nvim_lazy nvim"
 
 export VISUAL=nvim
 export PYTHON_VENV_NAME=.venv    # ohmyzsh plugin python
