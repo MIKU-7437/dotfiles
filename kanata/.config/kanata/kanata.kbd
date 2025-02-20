@@ -39,10 +39,10 @@
   caps (tap-hold $tt $ht esc lctl)
 
   ;; Примерные комбинации для a,s,d,f,...
-  a (tap-hold-release  $tt $ht a lmet)
-  s (tap-hold-release  $tt $ht s lalt)
-  d (tap-hold-release  $tt $ht d lsft)
-  f (tap-hold-release  $tt $ht f lctl)
+  a (tap-hold-release  $tt $ht a rmet)
+  s (tap-hold-release  $tt $ht s ralt)
+  d (tap-hold-release  $tt $ht d rsft)
+  f (tap-hold-release  $tt $ht f rctl)
   j (tap-hold-release  $tt $ht j rctl)
   k (tap-hold-release  $tt $ht k rsft)
   l (tap-hold-release  $tt $ht l ralt)
