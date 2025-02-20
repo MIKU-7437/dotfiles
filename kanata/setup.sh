@@ -1,22 +1,46 @@
 #!/bin/bash
 
-set -e
+set -e  # Exit immediately if any command fails
 
+KANATA_CONFIG="$HOME/.config/kanata/kanata.kbd"
 SERVICE_FILE="$HOME/.config/systemd/user/kanata.service"
-KANATA_CONFIG="$HOME/kanata.kbd"
+UDEV_RULES_FILE="/etc/udev/rules.d/99-input.rules"
 
-# Ensure the systemd user directory exists
-prepare_systemd_directory() {
-    if [ ! -d "$(dirname "$SERVICE_FILE")" ]; then
-        echo "Creating systemd user directory..."
-        mkdir -p "$(dirname "$SERVICE_FILE")"
-    fi
-}
+echo "Starting Kanata setup..."
 
-# Create or update the Kanata service file
-create_service_file() {
-    echo "Creating or updating the Kanata systemd service file..."
-    cat <<EOF >"$SERVICE_FILE"
+### 1. Ensure necessary groups exist
+echo "Creating and adding user to necessary groups..."
+#if ! grep -q "^uinput:" /etc/group; then
+#    sudo groupadd uinput
+#    groupadd -g 1001 uinput
+#    groupadd -g 994 input
+#fi
+sudo groupadd -f uinput
+sudo groupadd -f -g 1001 uinput
+sudo groupadd -f -g 994 input
+
+sudo usermod -aG input "$(whoami)"
+sudo usermod -aG uinput "$(whoami)"
+echo "User added to input and uinput groups."
+
+### 2. Set up udev rules for uinput
+echo "Setting up udev rules..."
+echo 'KERNEL=="uinput", MODE="0660", GROUP="uinput", OPTIONS+="static_node=uinput"' | sudo tee "$UDEV_RULES_FILE" > /dev/null
+#sudo udevadm control --reload-rules && sudo udevadm trigger
+echo "Udev rules applied."
+
+### 3. Load uinput module
+echo "Loading uinput module..."
+sudo modprobe uinput
+echo "uinput module loaded."
+
+### 4. Create systemd user directory
+echo "Ensuring systemd user directory exists..."
+mkdir -p "$(dirname "$SERVICE_FILE")"
+
+### 5. Create Kanata systemd service
+echo "Creating Kanata systemd service..."
+cat <<EOF >"$SERVICE_FILE"
 [Unit]
 Description=Kanata keyboard remapper
 Documentation=https://github.com/jtroo/kanata
@@ -26,41 +50,23 @@ Environment=PATH=/usr/local/bin:/usr/local/sbin:/usr/bin:/bin
 Environment=DISPLAY=:0
 Environment=HOME=$HOME
 Type=simple
-ExecStart=/usr/bin/kanata --cfg $KANATA_CONFIG
-Restart=never
+ExecStart=/usr/bin/sh -c 'exec \$(which kanata) --cfg $KANATA_CONFIG'
+Restart=no
 
 [Install]
 WantedBy=default.target
 EOF
-    echo "Service file created or updated at: $SERVICE_FILE"
-}
+echo "Systemd service file created at: $SERVICE_FILE"
 
-# Reload systemd user daemon and enable the service
-enable_and_start_service() {
-    echo "Reloading systemd daemon..."
-    systemctl --user daemon-reload
+### 6. Reload systemd, enable and start Kanata
+echo "Enabling and starting Kanata systemd service..."
+systemctl --user daemon-reload
+systemctl --user enable kanata.service
+systemctl --user restart kanata.service
+echo "Kanata systemd service has been successfully enabled and started."
 
-    echo "Enabling Kanata service..."
-    systemctl --user enable kanata.service
+### 7. Check service status
+systemctl --user status kanata.service --no-pager
 
-    echo "Starting Kanata service..."
-    systemctl --user restart kanata.service
+echo "Kanata setup completed successfully!"
 
-    echo "Kanata service has been successfully enabled and started."
-}
-
-# Main function to run the setup steps
-main() {
-    # Check if the Kanata configuration file exists
-    if [ ! -f "$KANATA_CONFIG" ]; then
-        echo "Kanata configuration file not found at: $KANATA_CONFIG"
-        echo "Make sure your configuration is available at this location."
-        exit 1
-    fi
-
-    prepare_systemd_directory
-    create_service_file
-    enable_and_start_service
-}
-
-main
