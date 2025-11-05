@@ -55,6 +55,7 @@ setopt hist_find_no_dups
 
 # Keybindings 
 bindkey -e
+bindkey '^[[C' autosuggest-accept
 bindkey '^p' history-search-backward
 bindkey '^n' history-search-forward
 bindkey '^[[1;5C' forward-word
@@ -99,3 +100,5 @@ alias lnvim="NVIM_APPNAME=nvim_lazy nvim"
 export VISUAL=nvim
 export PYTHON_VENV_NAME=.venv    # ohmyzsh plugin python
 export PYTHON_AUTO_VRUN=true     # ohmyzsh plugin python
+
+alias galleass="grep --color=always -h '^alias ' ~/.local/share/zinit/snippets/OMZP::git/OMZP::git | less -R"
