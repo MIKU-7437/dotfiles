@@ -58,8 +58,8 @@
   @grv 1    2    3    4    5    6    7    8    9    0    -    =    bspc
   tab  q    w    e    r    t    y    u    i    o    p    [    ]
   @caps @a   @s   @d  @f   g   h   @j   @k   @l   @;    '    ret
-  XX z    x    c    v    b    n    m    ,    .    /    XX
-  XX XX XX           @spc            XX XX XX
+  lsft z    x    c    v    b    n    m    ,    .    /    rsft
+  lctl lmet lalt           @spc            ralt rmet rctl
 )
 
 ;; Для слоя transparent при тройном тапе на `grv` переключаемся обратно на base
@@ -76,6 +76,6 @@
   grv   1    2    3    4    5    6    7    8    9    0    -    =    bspc
   tab   q    w    e    r    t    y    u    i    o    p    [    ]
   @caps   @a    @s    @d    @f    g    left down up right ;    '    ret
-  XX  z    x    c    v    b    C-left    home    end    C-right    /    XX
-  XX XX XX          spc                XX XX XX
+  lsft z    x    c    v    b    n    m    ,    .    /    rsft
+  lctl lmet lalt           @spc            ralt rmet rctl
 )
