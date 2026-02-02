@@ -102,3 +102,10 @@ export PYTHON_VENV_NAME=.venv    # ohmyzsh plugin python
 export PYTHON_AUTO_VRUN=true     # ohmyzsh plugin python
 
 alias galleass="grep --color=always -h '^alias ' ~/.local/share/zinit/snippets/OMZP::git/OMZP::git | less -R"
+
+# The next line updates PATH for CLI.
+if [ -f '/home/miku/yandex-cloud/path.bash.inc' ]; then source '/home/miku/yandex-cloud/path.bash.inc'; fi
+
+# The next line enables shell command completion for yc.
+if [ -f '/home/miku/yandex-cloud/completion.zsh.inc' ]; then source '/home/miku/yandex-cloud/completion.zsh.inc'; fi
+
