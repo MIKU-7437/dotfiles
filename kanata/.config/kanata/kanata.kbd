@@ -64,9 +64,6 @@
 
 ;; Для слоя transparent при тройном тапе на `grv` переключаемся обратно на base
 (deflayermap (transparent)
-  caps @caps
-  ;;caps esc
-  esc caps
   (template-expand triple-tap-layer-switch grv base)
 )
 
