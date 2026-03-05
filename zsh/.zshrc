@@ -101,7 +101,7 @@ export VISUAL=nvim
 export PYTHON_VENV_NAME=.venv    # ohmyzsh plugin python
 export PYTHON_AUTO_VRUN=true     # ohmyzsh plugin python
 
-alias galleass="grep --color=always -h '^alias ' ~/.local/share/zinit/snippets/OMZP::git/OMZP::git | less -R"
+alias galias='function _galias(){ if [ -n "$1" ]; then alias | grep git | grep --color=auto "$1"; else alias | grep --color=auto git; fi; }; _galias'
 
 # The next line updates PATH for CLI.
 if [ -f '/home/miku/yandex-cloud/path.bash.inc' ]; then source '/home/miku/yandex-cloud/path.bash.inc'; fi
